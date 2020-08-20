@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>initialSetupControlSettingWidget</class>
+ <widget class="QWidget" name="initialSetupControlSettingWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>468</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 255, 255);</string>
+  </property>
+  <widget class="QLabel" name="settingTextLabel">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>50</y>
+     <width>460</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">#settingTextLabel {
+font: 25pt &quot;나눔바른펜&quot;;
+
+}</string>
+   </property>
+   <property name="text">
+    <string>에너지 지킴이 설정 - 2</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="setting1Label">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>160</y>
+     <width>460</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>나눔바른펜</family>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">#setting1Label {
+border: 1px solid #ddd;
+}</string>
+   </property>
+   <property name="text">
+    <string>사람이 없을 때 자동 OFF</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="setting2Label">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>220</y>
+     <width>460</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>나눔바른펜</family>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">#setting2Label {
+border: 1px solid #ddd;
+}</string>
+   </property>
+   <property name="text">
+    <string>웹/앱을 통한 원격 제어</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="settingFinishButton">
+   <property name="geometry">
+    <rect>
+     <x>170</x>
+     <y>280</y>
+     <width>460</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>나눔바른펜</family>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">#settingFinishButton {
+background-color:rgb(242, 160, 160);
+color: white;
+border: none;
+}</string>
+   </property>
+   <property name="text">
+    <string>DSM 에너지 지킴이 시작하기</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="setting1ToggleButton">
+   <property name="geometry">
+    <rect>
+     <x>520</x>
+     <y>160</y>
+     <width>111</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>나눔바른펜</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">#setting1ToggleButton {
+border:none;
+	background-color: rgb(48, 216, 136);
+color: white;
+}</string>
+   </property>
+   <property name="text">
+    <string>ON</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="setting2ToggleButton">
+   <property name="geometry">
+    <rect>
+     <x>520</x>
+     <y>220</y>
+     <width>111</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>나눔바른펜</family>
+     <pointsize>12</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">#setting2ToggleButton {
+border:none;
+background-color: rgb(242, 160, 160);
+color: white;
+}</string>
+   </property>
+   <property name="text">
+    <string>OFF</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
