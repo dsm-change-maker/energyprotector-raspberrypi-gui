@@ -6,7 +6,7 @@
 
 ```
 # Resource 파일 및 UI 파일들을 Python 코드로 변환
-$ python convert_ui_to_py.py
+$ python convert_ui_to_py.py resources.qrc designer package/ui
 
 # Device ID 생성
 $ python python device_id_generator.py ./device_id.txt
