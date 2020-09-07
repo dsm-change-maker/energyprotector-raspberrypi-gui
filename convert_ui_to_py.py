@@ -3,8 +3,8 @@ import sys
 
 def usage():
 	print('Usage is ...')
-	print('\tpython convert_to_py.py [UI FILES DIR PATH]')
-	print('\tpython convert_to_py.py [UI FILES DIR PATH] [PY FILES DIR PATH]')
+	print('\tpython convert_ui_to_py.py [UI FILES DIR PATH]')
+	print('\tpython convert_ui_to_py.py [UI FILES DIR PATH] [PY FILES DIR PATH]')
 	exit()
 
 def is_ext_ui(file_name):
