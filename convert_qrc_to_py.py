@@ -3,8 +3,8 @@ import sys
 
 def usage():
     print('Usage is ...')
-    print('\tpython convert_qrc_to_py.py [RESOURCE DIR PATH]')
-    print('\tpython convert_qrc_to_py.py [RESOURCE DIR PATH] [PY FILES DIR PATH]')
+    print('\tpython convert_qrc_to_py.py [RESOURCE FILES DIR PATH]')
+    print('\tpython convert_qrc_to_py.py [RESOURCE FILES DIR PATH] [PY FILES DIR PATH]')
     exit()
 
 def is_ext_qrc(file_name):
