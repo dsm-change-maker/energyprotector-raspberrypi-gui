@@ -9,7 +9,7 @@
 $ python convert_all_to_py.py
 
 # Device ID 생성
-$ python python device_id_generator.py ./device_id.txt
+$ python device_id_generator.py ./device_id.txt
 
 # 프로그램 실행
 $ python main.py
