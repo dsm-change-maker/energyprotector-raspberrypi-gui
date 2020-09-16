@@ -15,7 +15,7 @@ class DeviceSetting():
         self.is_hash = False
 
     def get_id(self):
-        f = open(str(get_project_root()) + "/device_id.txt", "r")
+        f = open(str(get_project_root()) + "/conf/device_id.txt", "r")
         self.id = f.readline()
         f.close()
 

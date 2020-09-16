@@ -58,6 +58,9 @@ border-bottom-left-radius: 15%;</string>
      <pointsize>12</pointsize>
     </font>
    </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
    <property name="styleSheet">
     <string notr="true">border:none;
 background-color: rgb(48, 216, 136);
