@@ -1,6 +1,7 @@
 import re
 import bcrypt
 from pathlib import Path
+from PyQt5.QtWidgets import QPushButton
 
 
 def get_project_root() -> Path:
@@ -24,12 +25,60 @@ def password_validation(password) -> [bool, str]:
     return [True, "비밀번호 설정"]
 
 
-def hash_password(password):
-    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+def set_control_setting_style(button: QPushButton, state: bool):
+    if state:
+        button.setText("ON")
+        button.setStyleSheet("border:none;\n"
+                             "background-color: rgb(48, 216, 136);\n"
+                             "color: white;\n"
+                             "border-top-right-radius: 8%;\n"
+                             "border-bottom-right-radius: 8%;")
+    else:
+        button.setText("OFF")
+        button.setStyleSheet("border:none;\n"
+                             "background-color: rgb(242, 160, 160);\n"
+                             "color: white;\n"
+                             "border-top-right-radius: 8%;\n"
+                             "border-bottom-right-radius: 8%;")
 
 
-def check_password(hashed_password, password):
-    bcrypt.checkpw(password.encode('utf-8'), hashed_password)
+def finish_set_password(object, password_button) -> bool:
+    pw_res = password_validation(object.password)
+    if not pw_res[0]:
+        object.ui.password_edit.setText("")
+        object.ui.password_re_edit.setText("")
+        object.password = ""
+        object.re_password = ""
+        object.ui.notice_wrong_label.setText("!")
+        object.ui.notice_wrong_label_2.setText("!")
+        object.password_wrong = True
+        password_button.setText(pw_res[1])
+        return False
+
+    if len(object.password) > 0 and len(object.re_password) is 0:
+        object.ui.password_re_edit.setText("")
+        object.re_password = ""
+        object.ui.notice_wrong_label.setText("")
+        object.ui.notice_wrong_label_2.setText("!")
+        object.password_wrong = True
+        password_button.setText("'비밀번호 확인'을 입력해주세요")
+        return False
+
+    if object.password == object.re_password:
+        temp_password = object.ui.password_edit.text()
+        object.ui.password_edit.setText("")
+        object.ui.password_re_edit.setText("")
+        object.password = ""
+        object.re_password = ""
+        object.password = temp_password
+        return True
+    else:
+        object.ui.password_re_edit.setText("")
+        object.re_password = ""
+        object.ui.notice_wrong_label_2.setText("!")
+        object.password_wrong = True
+        password_button.setText("재입력한 비밀번호가 잘못되었습니다")
+    return False
 
 
 if __name__ == "__main__":

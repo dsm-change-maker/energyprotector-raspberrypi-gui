@@ -1,6 +1,5 @@
 import os
 from package.utils import get_project_root
-from package.utils import hash_password
 
 class DeviceSetting():
     def __init__(self):
@@ -12,7 +11,6 @@ class DeviceSetting():
 
     def set_password(self, pw):
         self.password = pw
-        self.is_hash = False
 
     def get_id(self):
         f = open(str(get_project_root()) + "/conf/device_id.txt", "r")
@@ -25,16 +23,10 @@ class DeviceSetting():
             return
         f = open(str(get_project_root()) + "/conf/config.txt", "r")
         self.id = f.readline()[:-1]
-        f.readline()
-        self.auto_control = bool(f.readline()[:-1])
-        self.remote_control = bool(f.readline()[:-1])
+        self.password = f.readline()[:-1]
+        self.auto_control = f.readline()[:-1] == 'True'
+        self.remote_control = f.readline()[:-1] == 'True'
         f.close()
-        self.print()
-
-    def hash(self):
-        if not self.is_hash:
-            self.password = hash_password(self.password)
-        self.is_hash = True
 
     def print(self):
         print("id:'"+self.id+"'")
@@ -43,7 +35,6 @@ class DeviceSetting():
         print("remote_control:'"+str(self.remote_control)+"'")
 
     def write(self):
-        self.hash()
         conf_path = str(get_project_root()) + "/conf"
         if not os.path.isdir(conf_path):
             os.mkdir(conf_path)
