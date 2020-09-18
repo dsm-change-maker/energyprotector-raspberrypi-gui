@@ -1,12 +1,12 @@
 from PyQt5.QtWidgets import *
 from package.ui.initial_setup_ui import Ui_initialSetupWidget
 from package.device_setting import DeviceSetting
-from package.utils import password_validation
 from package.utils import set_control_setting_style
 from package.utils import finish_set_password
 
+
 class InitialSetupUI(QStackedWidget):
-    def __init__(self, device_setting:DeviceSetting):
+    def __init__(self, device_setting: DeviceSetting):
         super().__init__()
         self.page = 0
         self.password = ""
@@ -21,8 +21,10 @@ class InitialSetupUI(QStackedWidget):
         self.setCurrentIndex(self.page)
 
     def init_device_setting(self):
+        if self.device_setting.load_conf():
+            return
         self.device_setting.get_id()
-        self.device_setting.auto_control = False
+        self.device_setting.auto_control = True
         self.device_setting.remote_control = True
 
     def setup_ui(self):
@@ -47,7 +49,6 @@ class InitialSetupUI(QStackedWidget):
 
     def finish_initial_setting(self):
         self.device_setting.write()
-        self.device_setting.print()
         self.next_page()
 
     def finish_page_set_password(self):
@@ -59,7 +60,7 @@ class InitialSetupUI(QStackedWidget):
             self.ui.password_setting_button.setText("비밀번호를 입력해주세요")
             return
         if finish_set_password(self, self.ui.password_setting_button):
-            self.device_setting.set_password(self.password)
+            self.device_setting.password = self.password
             self.next_page()
 
     def set_password(self):

@@ -5,15 +5,17 @@ from package.widgets.page_rank_log import PageRankLog
 from package.widgets.page_usage_time import PageUsageTime
 from package.widgets.page_setting import PageSetting
 from package.device_setting import DeviceSetting
+from package.utils import set_control_setting_style
 
 
 class MainEnergyProtectorUI(QMainWindow):
     def __init__(self, device_setting: DeviceSetting):
         super().__init__()
+        self.device_setting = device_setting
         self.page_control_energy = PageControlEnergy()
         self.page_rank_log = PageRankLog()
         self.page_usage_time = PageUsageTime()
-        self.page_setting = PageSetting(device_setting)
+        self.page_setting = PageSetting(self.device_setting)
 
         self.ui = Ui_MainWindow()
         self.setup_ui()
@@ -38,7 +40,6 @@ class MainEnergyProtectorUI(QMainWindow):
         self.ui.pagesWidget.setCurrentIndex(0)
 
     def go_rank_log_page(self):
-
         self.ui.pagesWidget.widget(3).initial()
         self.ui.pagesWidget.setCurrentIndex(1)
 
@@ -47,6 +48,10 @@ class MainEnergyProtectorUI(QMainWindow):
         self.ui.pagesWidget.setCurrentIndex(2)
 
     def go_setting_page(self):
+        self.device_setting.load_conf()
+        self.ui.pagesWidget.widget(3).ui.id_read_only.setText("ID & PW : '" + self.device_setting.id + "' & '" + self.device_setting.password+"'")
+        set_control_setting_style(self.ui.pagesWidget.widget(3).ui.auto_control_button, self.device_setting.auto_control)
+        set_control_setting_style(self.ui.pagesWidget.widget(3).ui.remote_control_button, self.device_setting.remote_control)
         self.ui.pagesWidget.setCurrentIndex(3)
 
 

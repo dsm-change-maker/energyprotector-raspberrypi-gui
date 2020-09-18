@@ -9,7 +9,6 @@ class PageSetting(QWidget):
     def __init__(self, device_setting: DeviceSetting):
         super().__init__()
         self.device_setting = device_setting
-        self.device_setting.load_conf()
         self.password = ""
         self.re_password = ""
         self.password_wrong = False

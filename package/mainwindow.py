@@ -1,14 +1,48 @@
 from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
+from package.device_setting import DeviceSetting
+from package.initial_setup import InitialSetupUI
+from package.main_energyprotector import MainEnergyProtectorUI
+
 
 class MainWindow(QMainWindow):
-
-
     def __init__(self):
-
         super().__init__()
-        self.setupUI()
+        self.device_setting = DeviceSetting()
+        self.initial_setup_ui = InitialSetupUI(self.device_setting)
+        self.main_energy_protector_ui = MainEnergyProtectorUI(self.device_setting)
+        self.setup_ui()
+        self.set_signals()
 
-    def setupUI(self):
+        temp_device_setting = DeviceSetting()
+        if not temp_device_setting.load_conf():
+            self.initial_setup_ui.show()
+            self.main_energy_protector_ui.hide()
+        else:
+            self.initial_setup_ui.hide()
+            self.main_energy_protector_ui.show()
 
+    def setup_ui(self):
         self.resize(800, 480)
+        self.setStyleSheet("background-color:white")
+        lay = QVBoxLayout()
+        lay.addWidget(self.initial_setup_ui)
+        lay.addWidget(self.main_energy_protector_ui)
+        widget = QWidget()
+        widget.setLayout(lay)
+        self.setCentralWidget(widget)
+
+    def set_signals(self):
+        self.initial_setup_ui.ui.initial_setting_finish_button.clicked.connect(self.finish_initial_setting)
+
+    def finish_initial_setting(self):
+        self.initial_setup_ui.hide()
+        self.main_energy_protector_ui.show()
+
+
+if __name__ == "__main__":
+    import sys
+
+    app = QApplication(sys.argv)
+    main_window = MainWindow()
+    main_window.show()
+    sys.exit(app.exec_())
