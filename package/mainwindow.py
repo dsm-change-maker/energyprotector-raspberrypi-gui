@@ -15,11 +15,9 @@ class MainWindow(QMainWindow):
 
         temp_device_setting = DeviceSetting()
         if not temp_device_setting.load_conf():
-            self.initial_setup_ui.show()
-            self.main_energy_protector_ui.hide()
+            self.show_initial_setting()
         else:
-            self.initial_setup_ui.hide()
-            self.main_energy_protector_ui.show()
+            self.show_main_energy_protector()
 
     def setup_ui(self):
         self.resize(800, 480)
@@ -32,9 +30,16 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(widget)
 
     def set_signals(self):
-        self.initial_setup_ui.ui.initial_setting_finish_button.clicked.connect(self.finish_initial_setting)
+        self.initial_setup_ui.ui.initial_setting_finish_button.clicked.connect(self.show_main_energy_protector)
+        self.main_energy_protector_ui.ui.pagesWidget.widget(3).go_initial.connect(self.show_initial_setting)
 
-    def finish_initial_setting(self):
+    def show_initial_setting(self):
+        self.initial_setup_ui.init()
+        self.main_energy_protector_ui.hide()
+        self.initial_setup_ui.show()
+
+    def show_main_energy_protector(self):
+        self.device_setting.print()
         self.initial_setup_ui.hide()
         self.main_energy_protector_ui.show()
 

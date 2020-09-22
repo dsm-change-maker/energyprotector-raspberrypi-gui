@@ -42,9 +42,9 @@
    <property name="geometry">
     <rect>
      <x>31</x>
-     <y>90</y>
+     <y>120</y>
      <width>441</width>
-     <height>40</height>
+     <height>38</height>
     </rect>
    </property>
    <property name="font">
@@ -81,9 +81,9 @@ padding: 0 10%;</string>
    <property name="geometry">
     <rect>
      <x>31</x>
-     <y>140</y>
+     <y>170</y>
      <width>441</width>
-     <height>40</height>
+     <height>38</height>
     </rect>
    </property>
    <property name="font">
@@ -120,9 +120,9 @@ padding: 0 10%;</string>
    <property name="geometry">
     <rect>
      <x>31</x>
-     <y>190</y>
+     <y>220</y>
      <width>441</width>
-     <height>40</height>
+     <height>38</height>
     </rect>
    </property>
    <property name="font">
@@ -156,9 +156,9 @@ padding: 0 10%;</string>
    <property name="geometry">
     <rect>
      <x>360</x>
-     <y>250</y>
+     <y>270</y>
      <width>111</width>
-     <height>40</height>
+     <height>38</height>
     </rect>
    </property>
    <property name="font">
@@ -185,9 +185,9 @@ border-bottom-right-radius: 8%;</string>
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>250</y>
+     <y>270</y>
      <width>331</width>
-     <height>40</height>
+     <height>38</height>
     </rect>
    </property>
    <property name="font">
@@ -212,9 +212,9 @@ border-bottom-left-radius: 8%;</string>
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>300</y>
+     <y>320</y>
      <width>331</width>
-     <height>41</height>
+     <height>38</height>
     </rect>
    </property>
    <property name="font">
@@ -239,9 +239,9 @@ border-bottom-left-radius: 8%;</string>
    <property name="geometry">
     <rect>
      <x>360</x>
-     <y>300</y>
+     <y>320</y>
      <width>111</width>
-     <height>41</height>
+     <height>38</height>
     </rect>
    </property>
    <property name="font">
@@ -268,9 +268,9 @@ border-bottom-right-radius: 8%;</string>
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>360</y>
+     <y>370</y>
      <width>441</width>
-     <height>40</height>
+     <height>38</height>
     </rect>
    </property>
    <property name="font">
@@ -296,7 +296,7 @@ border-radius: 8%;</string>
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>140</y>
+     <y>170</y>
      <width>30</width>
      <height>41</height>
     </rect>
@@ -326,7 +326,7 @@ border-radius: 8%;</string>
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>190</y>
+     <y>220</y>
      <width>30</width>
      <height>41</height>
     </rect>
@@ -350,6 +350,34 @@ border-radius: 8%;</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="initial_button">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>70</y>
+     <width>441</width>
+     <height>38</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>나눔바른펜</family>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:white;
+color: rgb(242,160,160);
+border: 1px solid rgb(242,160,160);
+border-radius: 8%;</string>
+   </property>
+   <property name="text">
+    <string>에너지 지킴이 초기화</string>
    </property>
   </widget>
  </widget>

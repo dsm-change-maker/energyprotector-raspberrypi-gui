@@ -5,8 +5,8 @@ class DeviceSetting():
     def __init__(self):
         self.id = ""
         self.password = ""
-        self.auto_control = False
-        self.remote_control = False
+        self.auto_control = True
+        self.remote_control = True
 
     def get_id(self):
         f = open(str(get_project_root()) + "/conf/device_id.txt", "r")

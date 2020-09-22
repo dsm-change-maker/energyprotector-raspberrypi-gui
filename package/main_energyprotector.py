@@ -11,6 +11,7 @@ from package.utils import set_control_setting_style
 class MainEnergyProtectorUI(QMainWindow):
     def __init__(self, device_setting: DeviceSetting):
         super().__init__()
+        self.go_initial = False
         self.device_setting = device_setting
         self.page_control_energy = PageControlEnergy()
         self.page_rank_log = PageRankLog()
@@ -34,6 +35,7 @@ class MainEnergyProtectorUI(QMainWindow):
         self.ui.go_rank_log_button.clicked.connect(self.go_rank_log_page)
         self.ui.go_usage_graph_button.clicked.connect(self.go_usage_graph_page)
         self.ui.go_setting_button.clicked.connect(self.go_setting_page)
+        self.ui.pagesWidget.widget(3).go_initial.connect(self.go_control_energy_page)
 
     def go_control_energy_page(self):
         self.ui.pagesWidget.widget(3).initial()
