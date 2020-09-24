@@ -3,6 +3,13 @@ import os
 import random
 import string
 from datetime import datetime
+from pathlib import Path
+
+
+def get_project_root() -> Path:
+    """Returns project root folder."""
+    return Path(__file__).parent.parent
+
 
 def usage():
     print('Usage is ...')
@@ -29,10 +36,10 @@ def main():
 
     id = new_id()
     print("Generated: " + id)
-    file = open(path_dir+"/"+file_name, "w")
+    file = open(path_dir + "/" + file_name, "w")
     file.write(id)
     file.close()
-    print("... \'" + path_dir+"/"+file_name + "\'")
+    print("... \'" + path_dir + "/" + file_name + "\'")
 
 
 if __name__ == '__main__':
