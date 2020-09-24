@@ -39,7 +39,6 @@ class MainWindow(QMainWindow):
         self.initial_setup_ui.show()
 
     def show_main_energy_protector(self):
-        self.device_setting.print()
         self.initial_setup_ui.hide()
         self.main_energy_protector_ui.show()
 

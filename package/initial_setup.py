@@ -26,12 +26,13 @@ class InitialSetupUI(QStackedWidget):
         self.re_password = ""
         self.password_wrong = False
         self.init_device_setting()
-        self.ui.id_read_only.setText("디바이스 아이디 : " + self.device_setting.id)
+        self.ui.id_read_only.setText("디바이스 그룹&아이디 : '" + self.device_setting.group + "'  & '" + self.device_setting.id + "'")
         set_control_setting_style(self.ui.auto_control_button, self.device_setting.auto_control)
         set_control_setting_style(self.ui.remote_control_button, self.device_setting.remote_control)
 
     def init_device_setting(self):
         self.device_setting.get_id()
+        self.device_setting.get_group()
         self.device_setting.password = ""
         self.device_setting.auto_control = True
         self.device_setting.remote_control = True
@@ -57,7 +58,6 @@ class InitialSetupUI(QStackedWidget):
         self.ui.remote_control_button.clicked.connect(self.toggle_remote_control)
 
     def finish_initial_setting(self):
-        self.device_setting.print()
         self.device_setting.write()
         self.next_page()
 

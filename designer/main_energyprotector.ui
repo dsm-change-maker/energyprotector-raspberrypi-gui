@@ -40,7 +40,7 @@
     <property name="geometry">
      <rect>
       <x>530</x>
-      <y>130</y>
+      <y>190</y>
       <width>241</width>
       <height>41</height>
      </rect>
@@ -68,7 +68,7 @@ border-radius: 20%;</string>
     <property name="geometry">
      <rect>
       <x>530</x>
-      <y>200</y>
+      <y>250</y>
       <width>241</width>
       <height>41</height>
      </rect>
@@ -96,7 +96,7 @@ border-radius: 20%;</string>
     <property name="geometry">
      <rect>
       <x>530</x>
-      <y>270</y>
+      <y>310</y>
       <width>241</width>
       <height>41</height>
      </rect>
@@ -124,7 +124,7 @@ border-radius: 20%;</string>
     <property name="geometry">
      <rect>
       <x>530</x>
-      <y>340</y>
+      <y>370</y>
       <width>241</width>
       <height>41</height>
      </rect>
@@ -162,6 +162,34 @@ border-radius: 20%;</string>
     </property>
     <widget class="QWidget" name="page_control_energy"/>
     <widget class="QWidget" name="page_rank_log"/>
+   </widget>
+   <widget class="QLabel" name="group_name_label">
+    <property name="geometry">
+     <rect>
+      <x>530</x>
+      <y>130</y>
+      <width>241</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>나눔바른펜</family>
+      <pointsize>16</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: white;
+color: #9f9f9f;
+border: 1px solid #9f9f9f;
+border-radius: 20%;</string>
+    </property>
+    <property name="text">
+     <string>그룹 : DSM_1fe3f34</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

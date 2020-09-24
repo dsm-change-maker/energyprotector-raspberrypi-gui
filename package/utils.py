@@ -1,5 +1,4 @@
 import re
-import bcrypt
 from pathlib import Path
 from PyQt5.QtWidgets import QPushButton
 
@@ -7,6 +6,20 @@ from PyQt5.QtWidgets import QPushButton
 def get_project_root() -> Path:
     """Returns project root folder."""
     return Path(__file__).parent.parent
+
+
+def process_res(response):
+    data = response.json()
+    if str(response.status_code)[0] == '4':
+        return [False, response.status_code, data.message]
+    return [True, response.status_code, data.data]
+
+
+def file_read_one(file_name):
+    f = open(file_name, "r")
+    res = f.readline()
+    f.close()
+    return res
 
 
 def password_validation(password) -> [bool, str]:
