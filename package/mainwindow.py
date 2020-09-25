@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from PyQt5.QtWidgets import *
 from package.device_setting import DeviceSetting
 from package.initial_setup import InitialSetupUI

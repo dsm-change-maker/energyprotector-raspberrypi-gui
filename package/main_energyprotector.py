@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from PyQt5.QtWidgets import *
 from package.ui.main_energyprotector_ui import Ui_MainWindow
 from package.widgets.page_control_energy import PageControlEnergy

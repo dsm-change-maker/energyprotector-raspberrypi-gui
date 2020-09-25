@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from package.utils import get_project_root
 import os
 

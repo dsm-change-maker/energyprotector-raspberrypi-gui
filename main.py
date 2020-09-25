@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 if __name__ == '__main__':
     import sys
     from package.app import run

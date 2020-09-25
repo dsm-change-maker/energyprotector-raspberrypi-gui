@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import pyqtSignal
 from package.ui.error_load_setting_ui import Ui_errorLoadSetting

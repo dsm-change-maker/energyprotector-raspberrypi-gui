@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from PyQt5.QtWidgets import *
 from package.ui.rank_log_label_ui import Ui_rankLogBox
 

@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from PyQt5.QtWidgets import *
 from package.ui.page_usage_time_ui import Ui_pageUsageTime
 from package.widgets.sub_widgets.usage_time_graph import UsageTimeGraph

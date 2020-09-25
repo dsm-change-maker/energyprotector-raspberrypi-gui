@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import re
 from pathlib import Path
 from PyQt5.QtWidgets import QPushButton
