@@ -1,21 +1,24 @@
 from PyQt5.QtWidgets import *
 from package.ui.initial_setup_ui import Ui_initialSetupWidget
 from package.device_setting import DeviceSetting
+from package.server import Server
+from package.service.api import Apis
 from package.utils import set_control_setting_style
 from package.utils import finish_set_password
 
 
 class InitialSetupUI(QStackedWidget):
-    def __init__(self, device_setting: DeviceSetting):
+    def __init__(self, device_setting: DeviceSetting, server:Server):
         super().__init__()
         self.page = 0
         self.password = ""
         self.re_password = ""
         self.password_wrong = False
+        self.server = server
         self.device_setting = device_setting
+        self.apis = Apis(server, device_setting)
         self.ui = Ui_initialSetupWidget()
 
-        self.init_device_setting()
         self.setup_ui()
         self.set_signals()
         self.setCurrentIndex(self.page)
@@ -31,6 +34,8 @@ class InitialSetupUI(QStackedWidget):
         set_control_setting_style(self.ui.remote_control_button, self.device_setting.remote_control)
 
     def init_device_setting(self):
+        print("test\n")
+        self.device_setting.print()
         self.device_setting.get_id()
         self.device_setting.get_group()
         self.device_setting.password = ""
@@ -58,7 +63,11 @@ class InitialSetupUI(QStackedWidget):
         self.ui.remote_control_button.clicked.connect(self.toggle_remote_control)
 
     def finish_initial_setting(self):
+        self.device_setting.print()
         self.device_setting.write()
+        #res = self.apis.raspberry.connect()
+        #if res[0]:
+
         self.next_page()
 
     def finish_page_set_password(self):

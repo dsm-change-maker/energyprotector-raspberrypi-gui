@@ -5,12 +5,14 @@ from package.widgets.page_rank_log import PageRankLog
 from package.widgets.page_usage_time import PageUsageTime
 from package.widgets.page_setting import PageSetting
 from package.device_setting import DeviceSetting
+from package.server import Server
 from package.utils import set_control_setting_style
 
 
 class MainEnergyProtectorUI(QMainWindow):
-    def __init__(self, device_setting: DeviceSetting):
+    def __init__(self, device_setting: DeviceSetting, server: Server):
         super().__init__()
+        self.server = server
         self.device_setting = device_setting
         self.page_control_energy = PageControlEnergy()
         self.page_rank_log = PageRankLog()
@@ -21,9 +23,14 @@ class MainEnergyProtectorUI(QMainWindow):
         self.setup_ui()
         self.set_signals()
 
+    def init(self):
+        self.device_setting.load_conf()
+        self.device_setting.before_password = self.device_setting.password
+        self.ui.group_name_label.setText("그룹 : " + self.device_setting.group)
+        self.device_setting.print()
+
     def setup_ui(self):
         self.ui.setupUi(self)
-        self.ui.group_name_label.setText("그룹 : " + self.device_setting.group)
         self.ui.pagesWidget.insertWidget(0, self.page_control_energy)
         self.ui.pagesWidget.insertWidget(1, self.page_rank_log)
         self.ui.pagesWidget.insertWidget(2, self.page_usage_time)
@@ -51,9 +58,12 @@ class MainEnergyProtectorUI(QMainWindow):
 
     def go_setting_page(self):
         self.device_setting.load_conf()
-        self.ui.pagesWidget.widget(3).ui.id_read_only.setText("ID & PW : '" + self.device_setting.id + "' & '" + self.device_setting.password+"'")
-        set_control_setting_style(self.ui.pagesWidget.widget(3).ui.auto_control_button, self.device_setting.auto_control)
-        set_control_setting_style(self.ui.pagesWidget.widget(3).ui.remote_control_button, self.device_setting.remote_control)
+        self.ui.pagesWidget.widget(3).ui.id_read_only.setText(
+            "ID & PW : '" + self.device_setting.id + "' & '" + self.device_setting.password + "'")
+        set_control_setting_style(self.ui.pagesWidget.widget(3).ui.auto_control_button,
+                                  self.device_setting.auto_control)
+        set_control_setting_style(self.ui.pagesWidget.widget(3).ui.remote_control_button,
+                                  self.device_setting.remote_control)
         self.ui.pagesWidget.setCurrentIndex(3)
 
 

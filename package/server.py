@@ -23,7 +23,7 @@ class Token:
 
 class Server:
     def __init__(self):
-        self.url = "127.0.0.1"
+        self.url = "https://energyprotector.run.goorm.io"
         self.token = Token()
 
     def print(self):

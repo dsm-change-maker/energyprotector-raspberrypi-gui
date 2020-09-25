@@ -10,9 +10,10 @@ def get_project_root() -> Path:
 
 def process_res(response):
     data = response.json()
+
     if str(response.status_code)[0] == '4':
         return [False, response.status_code, data.message]
-    return [True, response.status_code, data.data]
+    return [True, response.status_code, data]
 
 
 def file_read_one(file_name):

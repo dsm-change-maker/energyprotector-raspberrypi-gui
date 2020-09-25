@@ -2,13 +2,16 @@ import os
 import sys
 from package.utils import get_project_root
 from package.utils import file_read_one
+from package.database import DataBase
 
 
 class DeviceSetting():
     def __init__(self):
+        self.db = DataBase("energy_protector")
         self.group = ""
         self.id = ""
         self.password = ""
+        self.before_password = "GOOD"
         self.auto_control = True
         self.remote_control = True
         self.devices = []
@@ -53,6 +56,8 @@ class DeviceSetting():
         return True
 
     def print(self):
+        print('')
+        print("before_pw:'"+str(self.before_password)+"'")
         print("group:'" + self.group + "'")
         print("id:'" + self.id + "'")
         print("pw:'" + str(self.password) + "'")
