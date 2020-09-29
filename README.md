@@ -9,7 +9,10 @@
 $ python convert_all_to_py.py
 
 # Device ID 생성
-$ python device_id_generator.py conf device_id.txt
+$ python script/device_id_generator.py conf device_id.txt
+
+# Device Group 생성
+$ python script/device_group_generator.py DSMHS conf device_group.txt
 
 # 프로그램 실행
 $ python main.py

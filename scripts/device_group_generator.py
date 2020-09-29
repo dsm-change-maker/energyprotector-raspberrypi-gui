@@ -29,12 +29,12 @@ def main():
     group_str = sys.argv[1]
     path_dir = sys.argv[2]
     file_name = sys.argv[3]
-    if not os.path.isdir(path_dir):
-        os.makedirs(path_dir)
+    if not os.path.isdir(str(get_project_root()) + "/" + path_dir):
+        os.makedirs(str(get_project_root()) + "/" + path_dir)
 
     group_name = new_group(group_str)
     print("Generated: " + group_name)
-    file = open(path_dir + str(get_project_root()) + "/" + file_name, "w")
+    file = open(str(get_project_root()) + "/" + path_dir  + "/" + file_name, "w")
     file.write(group_name)
     file.close()
     print("... \'" + path_dir + "/" + file_name + "\'")
