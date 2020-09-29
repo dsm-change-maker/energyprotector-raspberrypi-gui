@@ -5,9 +5,9 @@ from pathlib import Path
 from PyQt5.QtWidgets import QPushButton
 
 
-def get_project_root() -> Path:
+def get_project_root():
     """Returns project root folder."""
-    return Path(__file__).parent.parent
+    return str(Path(__file__).parent.parent)
 
 
 def process_res(response):
