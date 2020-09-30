@@ -31,7 +31,7 @@ class PageUsageTime(QWidget):
             self.my_html.load(QUrl('file:///' + get_project_root() + '/conf/usage_time.html'))
         else:
             request_failed('USAGE.GET')
-            self.my_html.load(QUrl('file:///' + get_project_root() + '/conf/usage_time_request_failed.html'))
+            self.my_html.load(QUrl('file:///' + get_project_root() + '/usage_time_request_failed.html'))
 
     def init_data(self):
         op = opts.InitOpts(width="500px", height="331px")
