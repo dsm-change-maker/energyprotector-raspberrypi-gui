@@ -7,13 +7,29 @@ from PyQt5.QtWidgets import QPushButton
 
 def get_project_root():
     """Returns project root folder."""
-    return str(Path(__file__).parent.parent)
+    return str(Path(__file__).parent.parent).replace('\\','/')
+
+
+def get_type_devices(devices, device_type):
+    return list(filter(lambda e: e.d_type == device_type, devices))
+
+
+def request_failed(string):
+    print('<' + string + '> ERROR: 서버와의 통신 실패')
 
 
 def process_res(response):
-    data = response.json()
+    if not hasattr(response, 'status_code'):
+        return [False, None, 'ERROR']
+
+    try:
+        data = response.json()
+    except:
+        return [False, response.status_code, 'ERROR']
 
     if str(response.status_code)[0] == '4':
+        if not hasattr(data, 'message'):
+            return [False, response.status_code, 'ERROR']
         return [False, response.status_code, data.message]
     return [True, response.status_code, data]
 

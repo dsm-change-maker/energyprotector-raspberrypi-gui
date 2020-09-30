@@ -1,12 +1,10 @@
-from package.server import Server
 from package.utils import process_res
-from package.device_setting import DeviceSetting
 import requests
 import json
 
 
 class RaspberryApi:
-    def __init__(self, server: Server, device_setting: DeviceSetting):
+    def __init__(self, server, device_setting):
         self.uri = '/api/raspberry'
         self.server = server
         self.device_setting = device_setting
@@ -53,12 +51,14 @@ class RaspberryApi:
         res = requests.delete(self.server.url + self.uri, headers=headers)
         return process_res(res)
 
+
+if __name__ == "__main__":
+    from package.server import Server
+    from package.device_setting import DeviceSetting
+
     # dsm
     # dsm11
     # 1234
-
-
-if __name__ == "__main__":
     server = Server()
     device_setting = DeviceSetting()
     device_setting.group = 'dsm'
@@ -73,7 +73,6 @@ if __name__ == "__main__":
     res = rasp_api.connect()
     print(res)
     print('access_token : ' + res[2]['access_token'])
-    print('refresh_token : ' + res[2]['refresh_token'])
 
     ## Get Test
     print('- Get API TEST')

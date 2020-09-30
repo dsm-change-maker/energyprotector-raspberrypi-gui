@@ -1,11 +1,16 @@
 # -*- coding: utf-8 -*-
 
 from PyQt5.QtWidgets import *
-from package.device_setting import DeviceSetting
 from package.initial_setup import InitialSetupUI
 from package.main_energyprotector import MainEnergyProtectorUI
 from package.error_load_setting import ErrorLoadSettingUi
+from package.device_setting import DeviceSetting
 from package.server import Server
+from package.server import get_token
+from package.service.api import Apis
+from package.database import DataBase
+from package.utils import get_project_root
+from package.utils import request_failed
 
 
 class MainWindow(QMainWindow):
@@ -13,14 +18,23 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.server = Server()
         self.device_setting = DeviceSetting()
-        self.initial_setup_ui = InitialSetupUI(self.device_setting, self.server)
-        self.main_energy_protector_ui = MainEnergyProtectorUI(self.device_setting, self.server)
+        self.apis = Apis(self.server, self.device_setting)
+
+        self.initial_setup_ui = InitialSetupUI(self.device_setting, self.server, self.apis)
+        self.main_energy_protector_ui = MainEnergyProtectorUI(self.device_setting, self.server, self.apis)
         self.error_load_setting_ui = ErrorLoadSettingUi()
+
         self.setup_ui()
         self.set_signals()
 
-        temp_device_setting = DeviceSetting()
-        if not temp_device_setting.load_conf():
+        res = self.device_setting.register(self.server)
+        if res is not None:
+            if get_token(self.server, self.apis) is None:
+                request_failed('GET_TOKEN')
+        else:
+            request_failed('DEVICE_SETTING.REGISTER')
+
+        if not self.device_setting.load_conf():
             self.show_initial_setting()
         else:
             self.show_main_energy_protector()
@@ -47,10 +61,24 @@ class MainWindow(QMainWindow):
         self.initial_setup_ui.show()
 
     def show_main_energy_protector(self):
+        self.store_usage_time()
         self.main_energy_protector_ui.init()
         self.initial_setup_ui.hide()
         self.error_load_setting_ui.hide()
         self.main_energy_protector_ui.show()
+
+    def store_usage_time(self):
+        db = DataBase(get_project_root() + '/conf/energy_protector')
+        db.execute('CREATE TABLE IF NOT EXISTS usage_log (date TEXT, usage_time INT)')
+        res = self.apis.usage.get(day=True, day_n=1)
+        if res[0]:
+            date = res[2]['day'][0][0]
+            usage_time = int(res[2]['day'][0][1])
+            count = db.execute('SELECT COUNT(*) FROM usage_log WHERE date = ?', (date))[0]
+            if count is 0:
+                db.execute('INSERT INTO usage_log(date, usage_time) values (?, ?)', (date, usage_time))
+            else:
+                db.execute('UPDATE usage_log SET usage_time = ? WHERE date = ?', (int(usage_time), date))
 
 
 if __name__ == "__main__":

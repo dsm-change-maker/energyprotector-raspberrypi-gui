@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>pageRankLog</class>
- <widget class="QWidget" name="pageRankLog">
+ <class>pageUsageLog</class>
+ <widget class="QWidget" name="pageUsageLog">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -104,7 +104,7 @@ outline-style: none;</string>
     </font>
    </property>
    <property name="text">
-    <string>에너지 절감 순위 기록</string>
+    <string>에너지 사용 기록</string>
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>

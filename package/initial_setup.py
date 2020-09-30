@@ -4,21 +4,24 @@ from PyQt5.QtWidgets import *
 from package.ui.initial_setup_ui import Ui_initialSetupWidget
 from package.device_setting import DeviceSetting
 from package.server import Server
+from package.server import get_token
 from package.service.api import Apis
 from package.utils import set_control_setting_style
 from package.utils import finish_set_password
+from package.utils import request_failed
 
 
 class InitialSetupUI(QStackedWidget):
-    def __init__(self, device_setting: DeviceSetting, server:Server):
+    def __init__(self, device_setting: DeviceSetting, server: Server, apis: Apis):
         super().__init__()
+        self.server = server
+        self.device_setting = device_setting
+        self.apis = apis
+
         self.page = 0
         self.password = ""
         self.re_password = ""
         self.password_wrong = False
-        self.server = server
-        self.device_setting = device_setting
-        self.apis = Apis(server, device_setting)
         self.ui = Ui_initialSetupWidget()
 
         self.setup_ui()
@@ -30,19 +33,11 @@ class InitialSetupUI(QStackedWidget):
         self.password = ""
         self.re_password = ""
         self.password_wrong = False
-        self.init_device_setting()
-        self.ui.id_read_only.setText("디바이스 그룹&아이디 : '" + self.device_setting.group + "'  & '" + self.device_setting.id + "'")
+        self.device_setting.device_setting_init()
+        self.ui.id_read_only.setText(
+            "디바이스 그룹&아이디 : '" + self.device_setting.group + "'  & '" + self.device_setting.id + "'")
         set_control_setting_style(self.ui.auto_control_button, self.device_setting.auto_control)
         set_control_setting_style(self.ui.remote_control_button, self.device_setting.remote_control)
-
-    def init_device_setting(self):
-        print("test\n")
-        self.device_setting.print()
-        self.device_setting.get_id()
-        self.device_setting.get_group()
-        self.device_setting.password = ""
-        self.device_setting.auto_control = True
-        self.device_setting.remote_control = True
 
     def setup_ui(self):
         self.ui.setupUi(self)
@@ -66,9 +61,14 @@ class InitialSetupUI(QStackedWidget):
 
     def finish_initial_setting(self):
         self.device_setting.print()
-        self.device_setting.write()
-        #res = self.apis.raspberry.connect()
-        #if res[0]:
+        if get_token(self.server, self.apis) is None:
+            request_failed('GET_TOKEN')
+        else:
+            res = self.apis.raspberry.put()
+            if not res[0]:
+                request_failed('RASPBERRY.PUT')
+            else:
+                self.device_setting.write()
 
         self.next_page()
 

@@ -89,7 +89,7 @@ border: 0;
 border-radius: 20%;</string>
     </property>
     <property name="text">
-     <string>순위 기록</string>
+     <string>사용 기록</string>
     </property>
    </widget>
    <widget class="QPushButton" name="go_usage_graph_button">
