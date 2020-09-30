@@ -60,7 +60,6 @@ class InitialSetupUI(QStackedWidget):
         self.ui.remote_control_button.clicked.connect(self.toggle_remote_control)
 
     def finish_initial_setting(self):
-        self.device_setting.print()
         if get_token(self.server, self.apis) is None:
             request_failed('GET_TOKEN')
         else:

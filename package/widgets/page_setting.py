@@ -3,17 +3,22 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import pyqtSignal
 from package.ui.page_setting_ui import Ui_pageSetting
-from package.device_setting import DeviceSetting
 from package.utils import set_control_setting_style
 from package.utils import finish_set_password
+from package.utils import request_failed
+from package.server import get_token
+
 
 
 class PageSetting(QWidget):
     go_initial = pyqtSignal()
 
-    def __init__(self, device_setting: DeviceSetting):
+    def __init__(self, device_setting, server, apis):
         super().__init__()
         self.device_setting = device_setting
+        self.server = server
+        self.apis = apis
+
         self.password = ""
         self.re_password = ""
         self.password_wrong = False
@@ -128,9 +133,36 @@ class PageSetting(QWidget):
                 self.exist_message = True
         self.password = ""
         self.re_password = ""
-        self.ui.id_read_only.setText(
-            "ID & PW : '" + self.device_setting.id + "' & '" + self.device_setting.password + "'")
-        self.device_setting.write()
+
+        ## 라즈베리파이 설정 반영
+        if not password_is_change and not remote_control_is_change and auto_control_is_change:
+            self.device_setting.write()
+            return
+
+        is_change = password_is_change or remote_control_is_change
+        if is_change:
+            if get_token(self.server, self.apis) is None:
+                request_failed('GET_TOKEN')
+                self.ui.change_setting_button.setText("오류가 발생했습니다. 설정 변경에 실패하였습니다.")
+                self.exist_message = True
+                self.device_setting.load_conf()
+                set_control_setting_style(self.ui.auto_control_button, self.device_setting.auto_control)
+                set_control_setting_style(self.ui.remote_control_button, self.device_setting.remote_control)
+            else:
+                res = self.apis.raspberry.put()
+                if not res[0]:
+                    request_failed('RASPBERRY.PUT')
+                    self.ui.change_setting_button.setText("오류가 발생했습니다. 설정 변경에 실패하였습니다.")
+                    self.exist_message = True
+                    self.device_setting.load_conf()
+                    set_control_setting_style(self.ui.auto_control_button, self.device_setting.auto_control)
+                    set_control_setting_style(self.ui.remote_control_button, self.device_setting.remote_control)
+                else:
+                    self.device_setting.write()
+                    self.ui.id_read_only.setText(
+                        "ID & PW : '" + self.device_setting.id + "' & '" + self.device_setting.password + "'")
+        self.auto_control = self.device_setting.auto_control
+        self.remote_control = self.device_setting.remote_control
 
     def set_password(self):
         if self.password_wrong or self.exist_message:
@@ -181,6 +213,7 @@ class PageSetting(QWidget):
 
 if __name__ == "__main__":
     import sys
+    from package.device_setting import DeviceSetting
 
     app = QApplication(sys.argv)
     device_setting = DeviceSetting()

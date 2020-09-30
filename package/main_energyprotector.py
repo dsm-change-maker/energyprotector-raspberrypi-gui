@@ -22,7 +22,7 @@ class MainEnergyProtectorUI(QMainWindow):
         self.page_control_energy = PageControlEnergy(device_setting, server, apis)
         self.page_usage_log = PageUsageLog()
         self.page_usage_time = PageUsageTime(self.apis)
-        self.page_setting = PageSetting(self.device_setting)
+        self.page_setting = PageSetting(self.device_setting, self.server, self.apis)
 
         self.ui = Ui_MainWindow()
         self.setup_ui()
