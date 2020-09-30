@@ -230,3 +230,4 @@ dmypy.json
 package/ui/
 /conf/
 /resources_rc.py
+*.ui.bak
