@@ -7,11 +7,15 @@ from PyQt5.QtWidgets import QPushButton
 
 def get_project_root():
     """Returns project root folder."""
-    return str(Path(__file__).parent.parent).replace('\\','/')
+    return str(Path(__file__).parent.parent).replace('\\', '/')
 
 
 def get_type_devices(devices, device_type):
     return list(filter(lambda e: e.d_type == device_type, devices))
+
+
+def get_device_one(devices, device_id, device_type):
+    return list(filter(lambda e: e.id == device_id and e.d_type == device_type, devices))
 
 
 def request_failed(string):

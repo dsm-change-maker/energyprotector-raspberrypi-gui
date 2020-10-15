@@ -5,6 +5,8 @@ from package.ui.energy_control_button_ui import Ui_controlButtonBox
 from package.service.api import Apis
 from package.server import Server
 from package.utils import request_failed
+from package.utils import get_project_root
+from package.device_setting import Device
 
 
 class ControlEnergyButton(QWidget):
@@ -31,6 +33,10 @@ class ControlEnergyButton(QWidget):
     def set_text(self, text):
         self.ui.button_text_label.setText(text)
 
+    def set_state(self, state):
+        self.state = state
+        self.set_style()
+
     def set_style(self):
         if self.state:
             self.ui.button_push.setText("ON")
@@ -46,10 +52,12 @@ class ControlEnergyButton(QWidget):
                                               "color: white;\n"
                                               "border-top-right-radius: 15%;\n"
                                               "border-bottom-right-radius: 15%;")
+        self.ui.button_push.repaint()
 
     def toggle_state(self):
         self.state = not self.state
-        res = self.apis.device.control(self.device_id, self.device_type, self.state, self.unit_index, self.server.token.access)
+        res = self.apis.device.control(self.device_id, self.device_type, self.state, self.unit_index,
+                                       self.server.token.access)
 
         if res[0] is False:
             self.state = not self.state
@@ -63,6 +71,7 @@ class ControlEnergyButton(QWidget):
             return
 
         self.set_style()
+
 
 if __name__ == "__main__":
     import sys

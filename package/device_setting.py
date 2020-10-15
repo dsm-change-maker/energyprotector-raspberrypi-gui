@@ -10,6 +10,7 @@ from package.utils import get_type_devices
 from package.database import DataBase
 from package.server import Server
 from package.service.api import Apis
+from package.utils import get_device_one
 
 
 def get_devices():
@@ -18,7 +19,16 @@ def get_devices():
         devices_data = json.load(devices_json)
         for i in range(len(devices_data)):
             devices.append(Device(devices_data[i]['id'], devices_data[i]['type'], devices_data[i]['unit_count']))
+            devices[i].load()
     return devices
+
+
+def update_device(device_id, device_type, unit_index, on_off):
+    this_device_list = get_device_one(get_devices(), device_id, device_type)
+    if len(this_device_list) is not 0:
+        this_device = this_device_list[0]
+        this_device.units[unit_index] = on_off
+        this_device.write()
 
 
 class Device:
@@ -40,7 +50,7 @@ class Device:
                 (self.id, self.d_type, self.ip, self.units_to_str())
             )
         else:
-            self.load(units=False)
+            self.load()
             self.write()
 
     def set_unit(self, i, state):

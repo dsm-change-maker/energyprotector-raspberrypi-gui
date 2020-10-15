@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from PyQt5.QtWidgets import *
-from PyQt5.QtCore import Qt
 from package.ui.page_control_energy_ui import Ui_pageControlEnergy
 from package.widgets.sub_widgets.control_energy_button import ControlEnergyButton
 from package.server import Server
@@ -33,7 +32,8 @@ class PageControlEnergy(QWidget):
         for n in range(self.switch_count):
             temp_device = self.device_setting.switch_devices[n]
             for n_unit in range(len(temp_device.units)):
-                self.switch_buttons.append(ControlEnergyButton(temp_device.id, temp_device.d_type, n_unit, self.apis, self.server))
+                self.switch_buttons.append(
+                    ControlEnergyButton(temp_device.id, temp_device.d_type, n_unit, self.apis, self.server, init_state=temp_device.units[n_unit]))
                 self.switch_buttons[switch_unit_count].set_text("스위치" + str(switch_unit_count + 1))
                 self.ui.gridLayout.addWidget(self.switch_buttons[switch_unit_count], switch_unit_count, 0)
                 switch_unit_count += 1
@@ -41,16 +41,27 @@ class PageControlEnergy(QWidget):
         for n in range(self.plug_count):
             temp_device = self.device_setting.plug_devices[n]
             for n_unit in range(len(temp_device.units)):
-                self.plug_buttons.append(ControlEnergyButton(temp_device.id, temp_device.d_type, n_unit, self.apis, self.server))
+                self.plug_buttons.append(
+                    ControlEnergyButton(temp_device.id, temp_device.d_type, n_unit, self.apis, self.server, init_state=temp_device.units[n_unit]))
                 self.plug_buttons[plug_unit_count].set_text("플러그" + str(plug_unit_count + 1))
                 self.ui.gridLayout.addWidget(self.plug_buttons[plug_unit_count], plug_unit_count, 1)
                 plug_unit_count += 1
 
     def initial(self):
-        for switch_button in self.switch_buttons:
-            switch_button.set_style()
-        for plug_button in self.plug_buttons:
-            plug_button.set_style()
+        switch_unit_count = 0
+        plug_unit_count = 0
+        for switch_device in self.device_setting.switch_devices:
+            switch_device.load()
+            for n_unit in range(len(switch_device.units)):
+                self.switch_buttons[switch_unit_count].set_state(switch_device.units[n_unit])
+                switch_unit_count += 1
+        for plug_device in self.device_setting.plug_devices:
+            plug_device.load()
+            for n_unit in range(len(plug_device.units)):
+                self.plug_buttons[plug_unit_count].set_state(plug_device.units[n_unit])
+                plug_unit_count += 1
+
+
 
 if __name__ == "__main__":
     import sys

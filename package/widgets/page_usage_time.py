@@ -14,6 +14,7 @@ class PageUsageTime(QWidget):
     def __init__(self, apis):
         super().__init__()
         self.apis = apis
+        self.my_html = QWebEngineView()
         self.ui = Ui_pageUsageTime()
         self.day_times = [80, 90, 100, 110, 120]
         self.month_times = [100, 200, 300, 400, 500]
@@ -46,7 +47,6 @@ class PageUsageTime(QWidget):
 
     def setup_ui(self):
         self.ui.setupUi(self)
-        self.my_html = QWebEngineView()
         self.my_html.load(QUrl('file:///' + get_project_root() + '/conf/usage_time.html'))
         self.ui.verticalLayout.addWidget(self.my_html)
 
@@ -55,7 +55,7 @@ if __name__ == "__main__":
     import sys
 
     app = QApplication(sys.argv)
-    pageUsageTime = PageUsageTime()
+    pageUsageTime = PageUsageTime(None)
     pageUsageTime.show()
 
     sys.exit(app.exec())

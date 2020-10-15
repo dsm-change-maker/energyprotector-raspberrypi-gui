@@ -3,6 +3,8 @@
 from package.utils import get_project_root
 from package.database import DataBase
 
+SERVER_URL = 'https://energyprotector.run.goorm.io'
+
 
 class Token:
     def __init__(self):
@@ -41,7 +43,7 @@ class Token:
 
 class Server:
     def __init__(self):
-        self.url = "https://energyprotector.run.goorm.io"
+        self.url = SERVER_URL
         self.token = Token()
 
     def print(self):

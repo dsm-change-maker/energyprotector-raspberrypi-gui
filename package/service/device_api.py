@@ -3,6 +3,18 @@ import requests
 import json
 
 
+def device_control_api(server_url, device_id, device_type, on_off, unit_index, token):
+    headers = {'Content-Type': 'application/json', 'Authentication': "Bearer " + token}
+    data = {
+        'device_id': device_id,
+        'device_type': device_type,
+        'on_off': on_off,
+        'unit_index': unit_index
+    }
+    res = requests.post(server_url + '/api/device/control', headers=headers, data=json.dumps(data))
+    return process_res(res)
+
+
 class DeviceApi:
     def __init__(self, server):
         self.uri = '/api/device'
@@ -15,15 +27,7 @@ class DeviceApi:
         return process_res(res)
 
     def control(self, device_id, device_type, on_off, unit_index, token):
-        headers = {'Content-Type': 'application/json', 'Authentication': "Bearer " + token}
-        data = {
-            'device_id': device_id,
-            'device_type': device_type,
-            'on_off': on_off,
-            'unit_index': unit_index
-        }
-        res = requests.post(self.server.url + self.uri + '/control', headers=headers, data=json.dumps(data))
-        return process_res(res)
+        return device_control_api(self.server.url, device_id, device_type, on_off, unit_index, token)
 
     def get_devices(self, token):
         headers = {'Authentication': "Bearer " + token}
