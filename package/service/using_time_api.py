@@ -9,13 +9,22 @@ class UsingTimeApi:
         self.device_setting = device_setting
 
     def get(self, year=False, year_n=0, month=False, month_n=0, day=False, day_n=0):
+        is_year = 0
+        is_month = 0
+        is_day = 0
+        if year is True:
+            is_year = 1
+        if month is True:
+            is_month = 1
+        if day is True:
+            is_day = 1
         params = {'raspberry_group': self.device_setting.group,
                   'raspberry_id': self.device_setting.id,
-                  'year': year,
+                  'year': is_year,
                   'year_n': year_n,
-                  'month': month,
+                  'month': is_month,
                   'month_n': month_n,
-                  'day': day,
+                  'day': is_day,
                   'day_n': day_n}
         res = requests.get(self.server.url + self.uri, params=params)
         return process_res(res)

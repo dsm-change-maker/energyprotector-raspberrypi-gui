@@ -46,6 +46,7 @@ def main(raspberry_id='', raspberry_group='', host=constant.SERVER_URL, port=con
                     update_device(signal.recv_data.device_id, signal.recv_data.device_type, signal.recv_data.unit_index,
                                   signal.recv_data.on_off)
                 signal.device_req_ok = False
+    run_client_raspberry_thread.stop()
 
 
 class SocketClientRaspberryThread(threading.Thread):

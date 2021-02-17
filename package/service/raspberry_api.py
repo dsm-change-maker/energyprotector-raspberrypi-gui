@@ -1,4 +1,5 @@
 from package.utils import process_res
+from package.utils import get_devices_info
 import requests
 import json
 
@@ -20,7 +21,7 @@ class RaspberryApi:
         return process_res(res)
 
     def get(self, token):
-        headers = {'Content-Type': 'application/json', 'Authentication': "Bearer " + token}
+        headers = {'Content-Type': 'application/json', 'Authorization': "Bearer " + token}
         res = requests.get(self.server.url + self.uri, headers=headers)
         return process_res(res)
 
@@ -30,20 +31,22 @@ class RaspberryApi:
             'raspberry_group': self.device_setting.group,
             'raspberry_id': self.device_setting.id,
             'raspberry_pw': self.device_setting.password,
-            'remote_control': self.device_setting.remote_control
+            'remote_control': self.device_setting.remote_control,
+            'devices': get_devices_info(self.device_setting.devices)
         }
         res = requests.post(self.server.url + self.uri, headers=headers, data=json.dumps(data))
         return process_res(res)
 
     def put(self, token):
-        headers = {'Content-Type': 'application/json', 'Authentication': "Bearer " + token}
+        headers = {'Content-Type': 'application/json', 'Authorization': "Bearer " + token}
         data = {
             'raspberry_group': self.device_setting.group,
             'raspberry_id': self.device_setting.id,
             'raspberry_pw': self.device_setting.password,
             'remote_control': self.device_setting.remote_control
         }
-        res = requests.post(self.server.url + self.uri, headers=headers, data=json.dumps(data))
+
+        res = requests.put(self.server.url + self.uri, headers=headers, data=json.dumps(data))
         return process_res(res)
 
     def delete(self, token):

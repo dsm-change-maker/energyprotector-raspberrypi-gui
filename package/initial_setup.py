@@ -63,7 +63,8 @@ class InitialSetupUI(QStackedWidget):
         if get_token(self.server, self.apis) is None:
             request_failed('GET_TOKEN')
         else:
-            res = self.apis.raspberry.put()
+            res = self.apis.raspberry.put(self.server.token.access)
+            print(res)
             if not res[0]:
                 request_failed('RASPBERRY.PUT')
             else:

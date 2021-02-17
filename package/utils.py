@@ -10,6 +10,14 @@ def get_project_root():
     return str(Path(__file__).parent.parent).replace('\\', '/')
 
 
+def get_device_info(device_info):
+    return {'device_id': device_info.id, 'device_type': device_info.d_type}
+
+
+def get_devices_info(devices_info):
+    return list(map(lambda e: get_device_info(e), devices_info))
+
+
 def get_type_devices(devices, device_type):
     return list(filter(lambda e: e.d_type == device_type, devices))
 
@@ -32,9 +40,10 @@ def process_res(response):
         return [False, response.status_code, 'ERROR']
 
     if str(response.status_code)[0] == '4':
-        if not hasattr(data, 'message'):
+        try:
+            return [False, response.status_code, data['message']]
+        except:
             return [False, response.status_code, 'ERROR']
-        return [False, response.status_code, data.message]
     return [True, response.status_code, data]
 
 

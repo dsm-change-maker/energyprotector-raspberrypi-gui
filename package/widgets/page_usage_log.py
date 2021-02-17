@@ -7,9 +7,21 @@ from package.widgets.sub_widgets.usage_log_label import UsageLogLabel
 from package.utils import get_project_root
 from package.database import DataBase
 
+def usagelog_update(day_usage_times):
+    db = DataBase(get_project_root() + '/conf/energy_protector')
+    db.execute('CREATE TABLE IF NOT EXISTS usage_log (date TEXT, usage_time INT)')
+    for time in day_usage_times:
+        count = db.execute('SELECT COUNT(*) FROM usage_log WHERE date = ?',
+                                (time[0],))[0][0]
+        if count is 0:
+            db.execute('INSERT INTO usage_log (date, usage_time) values (?, ?)',(time[0], time[1], ))
+        else:
+            db.execute('UPDATE usage_log SET usage_time=? WHERE date = ?', (time[1], time[0],))
+
 class PageUsageLog(QWidget):
-    def __init__(self):
+    def __init__(self, apis):
         super().__init__()
+        self.apis = apis
         self.ui = Ui_pageUsageLog()
         self.setup_ui()
 
@@ -24,9 +36,12 @@ class PageUsageLog(QWidget):
 
     def get_log(self):
         db = DataBase(get_project_root() + '/conf/energy_protector')
-        db.execute('CREATE TABLE IF NOT EXISTS usage_log (date TEXT, usage_time INT)')
+        db.execute('CREATE TABLE IF NOT EXISTS usage_log (date TEXT primary key, usage_time INT)')
 
-        log_count = db.execute('SELECT COUNT(*) FROM usage_log WHERE date = CURRENT_DATE')[0][0]
+        day_res = self.apis.usage.get(day=True, day_n=5)
+        usagelog_update(day_res[2]['day'])
+
+        log_count = db.execute('SELECT COUNT(*) FROM usage_log')[0][0]
         if log_count > 0:
             self.usage_logs = []
             data_list = db.execute('SELECT * FROM usage_log')

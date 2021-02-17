@@ -20,7 +20,7 @@ class MainEnergyProtectorUI(QMainWindow):
         self.apis = apis
 
         self.page_control_energy = PageControlEnergy(device_setting, server, apis)
-        self.page_usage_log = PageUsageLog()
+        self.page_usage_log = PageUsageLog(apis)
         self.page_usage_time = PageUsageTime(self.apis)
         self.page_setting = PageSetting(self.device_setting, self.server, self.apis)
 
@@ -53,6 +53,7 @@ class MainEnergyProtectorUI(QMainWindow):
         self.ui.pagesWidget.setCurrentIndex(0)
 
     def go_rank_log_page(self):
+        self.ui.pagesWidget.widget(1).get_log()
         self.ui.pagesWidget.widget(3).initial()
         self.ui.pagesWidget.setCurrentIndex(1)
 

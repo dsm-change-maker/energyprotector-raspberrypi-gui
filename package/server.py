@@ -3,7 +3,7 @@
 from package.utils import get_project_root
 from package.database import DataBase
 
-SERVER_URL = 'https://energyprotector.run.goorm.io'
+SERVER_URL = 'https://energyprotector-api.run.goorm.io'
 
 
 class Token:
@@ -53,6 +53,7 @@ class Server:
 
 def get_token(server_objs, apis):
     server_objs.token.load()
+
     if len(server_objs.token.access) is 0:
         res = apis.raspberry.connect()
         if res[0]:

@@ -149,7 +149,7 @@ class PageSetting(QWidget):
                 set_control_setting_style(self.ui.auto_control_button, self.device_setting.auto_control)
                 set_control_setting_style(self.ui.remote_control_button, self.device_setting.remote_control)
             else:
-                res = self.apis.raspberry.put()
+                res = self.apis.raspberry.put(self.server.token.access)
                 if not res[0]:
                     request_failed('RASPBERRY.PUT')
                     self.ui.change_setting_button.setText("오류가 발생했습니다. 설정 변경에 실패하였습니다.")

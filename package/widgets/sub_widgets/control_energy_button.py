@@ -58,7 +58,7 @@ class ControlEnergyButton(QWidget):
         self.state = not self.state
         res = self.apis.device.control(self.device_id, self.device_type, self.state, self.unit_index,
                                        self.server.token.access)
-
+        print(res)
         if res[0] is False:
             self.state = not self.state
             request_failed('DEVICE.CONTROL')

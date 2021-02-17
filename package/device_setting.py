@@ -175,4 +175,6 @@ class DeviceSetting:
             self.is_registered = True
             self.write()
             return True
+        if not res[0] and res[1] == 400:
+            return False
         return None

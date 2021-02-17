@@ -11,6 +11,7 @@ from package.service.api import Apis
 from package.database import DataBase
 from package.utils import get_project_root
 from package.utils import request_failed
+from package.widgets.page_usage_time import usagelog_update
 
 
 class MainWindow(QMainWindow):
@@ -68,17 +69,9 @@ class MainWindow(QMainWindow):
         self.main_energy_protector_ui.show()
 
     def store_usage_time(self):
-        db = DataBase(get_project_root() + '/conf/energy_protector')
-        db.execute('CREATE TABLE IF NOT EXISTS usage_log (date TEXT, usage_time INT)')
-        res = self.apis.usage.get(day=True, day_n=1)
+        res = self.apis.usage.get(day=True, day_n=5)
         if res[0]:
-            date = res[2]['day'][0][0]
-            usage_time = int(res[2]['day'][0][1])
-            count = db.execute('SELECT COUNT(*) FROM usage_log WHERE date = ?', (date))[0]
-            if count is 0:
-                db.execute('INSERT INTO usage_log(date, usage_time) values (?, ?)', (date, usage_time))
-            else:
-                db.execute('UPDATE usage_log SET usage_time = ? WHERE date = ?', (int(usage_time), date))
+            usagelog_update(res[2]['day'])
 
 
 if __name__ == "__main__":
