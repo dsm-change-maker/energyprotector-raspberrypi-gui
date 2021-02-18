@@ -16,7 +16,7 @@ def req():
                 'device_ip': '0.0.0.0'
             }
             res = requests.post(SERVER_URL + '/api/device', headers=headers, data=json.dumps(data))
-            print(device['id'], res)
+            print(device['id'], res, res.json())
 
 
 if __name__ == '__main__':

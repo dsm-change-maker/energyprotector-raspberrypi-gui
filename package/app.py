@@ -10,7 +10,7 @@ QApplication.setApplicationVersion('0.1')
 raspberry_id = 'BTY2_7caa0e2f'
 raspberry_group = 'DSMHS_7cbf72b9'
 SERVER_HOST = '3.35.25.172'
-SERVER_PORT = 58495
+SERVER_PORT = 58995
 
 
 def run():

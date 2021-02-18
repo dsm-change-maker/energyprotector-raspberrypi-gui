@@ -39,7 +39,8 @@ class PageUsageLog(QWidget):
         db.execute('CREATE TABLE IF NOT EXISTS usage_log (date TEXT primary key, usage_time INT)')
 
         day_res = self.apis.usage.get(day=True, day_n=5)
-        usagelog_update(day_res[2]['day'])
+        if day_res[0]:
+            usagelog_update(day_res[2]['day'])
 
         log_count = db.execute('SELECT COUNT(*) FROM usage_log')[0][0]
         if log_count > 0:
